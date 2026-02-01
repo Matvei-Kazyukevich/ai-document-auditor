@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# Virtual env
+.venv/
+
+# IDE
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Env files
+.env
+
+# Runtime storage (uploaded docs, reports)
+storage/
+
+# Test caches
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Migrations cache (optional)
+alembic.ini.bak
