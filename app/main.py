@@ -6,6 +6,8 @@ from app.db.session import check_db_connection, engine
 
 from app.db.models import Base
 
+from app.api.routers.document import router as documents_router
+
 @asynccontextmanager
 async def lifespan(fastapi_app: FastAPI):
     Base.metadata.create_all(bind=engine)
@@ -24,3 +26,5 @@ def health():
         'database': settings.database_url,
         'database_connected': db_check,
     }
+
+app.include_router(documents_router)
