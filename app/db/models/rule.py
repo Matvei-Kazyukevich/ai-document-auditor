@@ -44,6 +44,9 @@ class Rule(Base):
         nullable=False,
     )
 
-    executions: Mapped[list[RuleExecution]] = relationship(back_populates='rule', cascade='all, delete-orphan')
+    executions: Mapped[list[RuleExecution]] = relationship(
+        back_populates='rule',
+        cascade='all, delete-orphan',
+    )
 
 
