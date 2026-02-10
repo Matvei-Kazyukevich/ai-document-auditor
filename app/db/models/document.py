@@ -1,9 +1,12 @@
+from __future__ import annotations
+
 import enum
 from datetime import datetime, UTC
 
 from sqlalchemy import String, DateTime, Enum, BigInteger
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from app.db.models import RuleExecution, AuditFinding
 from app.db.models.base import Base
 
 
@@ -56,4 +59,14 @@ class Document(Base):
         default=lambda: datetime.now(UTC),
         onupdate=lambda: datetime.now(UTC),
         nullable=False,
+    )
+
+    rule_executions: Mapped[list[RuleExecution]] = relationship(
+        back_populates='document',
+        cascade='all, delete-orphan',
+    )
+
+    audit_findings: Mapped[list[AuditFinding]] = relationship(
+        back_populates='document',
+        cascade='all, delete-orphan',
     )

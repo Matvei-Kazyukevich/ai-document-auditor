@@ -6,6 +6,7 @@ from datetime import datetime, UTC
 from sqlalchemy import String, DateTime, Enum, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from app.db.models import AuditFinding
 from app.db.models.base import Base
 from app.db.models.rule import Rule
 from app.db.models.document import Document
@@ -43,4 +44,9 @@ class RuleExecution(Base):
     )
 
     rule: Mapped[Rule] = relationship(back_populates='executions')
-    document: Mapped[Document] = relationship()
+    document: Mapped[Document] = relationship(back_populates='rule_executions')
+
+    audit_findings: Mapped[AuditFinding] = relationship(
+        back_populates='rule_execution',
+        cascade='all, delete-orphan',
+    )

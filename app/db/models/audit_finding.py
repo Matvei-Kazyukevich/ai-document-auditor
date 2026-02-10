@@ -3,7 +3,7 @@ from __future__ import annotations
 import enum
 from datetime import datetime,UTC
 
-from sqlalchemy import String, DateTime, Enum, ForeignKey
+from sqlalchemy import String, Text, DateTime, Enum, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.models.base import Base
@@ -53,8 +53,8 @@ class AuditFinding(Base):
     )
 
     title: Mapped[str] = mapped_column(String(255), nullable=False)
-    description: Mapped[str] = mapped_column(String(2000), nullable=False)
-    recommendation: Mapped[str | None] = mapped_column(String(2000), nullable=True)
+    description: Mapped[str] = mapped_column(Text, nullable=False)
+    recommendation: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
@@ -62,5 +62,5 @@ class AuditFinding(Base):
         nullable=False,
     )
 
-    document: Mapped[Document] = relationship()
-    rule_execution: Mapped[RuleExecution] = relationship()
+    document: Mapped[Document] = relationship(back_populates='audit_findings')
+    rule_execution: Mapped[RuleExecution] = relationship('audit_findings',)
