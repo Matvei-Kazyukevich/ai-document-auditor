@@ -2,12 +2,16 @@ from __future__ import annotations
 
 import enum
 from datetime import datetime, UTC
+from typing import TYPE_CHECKING
 
 from sqlalchemy import String, DateTime, Enum, BigInteger
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.db.models import RuleExecution, AuditFinding
 from app.db.models.base import Base
+
+if TYPE_CHECKING:
+    from app.db.models.rule_execution import RuleExecution
+    from app.db.models.audit_finding import AuditFinding
 
 
 class DocumentStatus(enum.Enum):

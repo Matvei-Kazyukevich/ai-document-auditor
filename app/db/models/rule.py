@@ -2,12 +2,15 @@ from __future__ import annotations
 
 import enum
 from datetime import datetime, UTC
+from typing import TYPE_CHECKING
 
 from sqlalchemy import String, Boolean, Enum, DateTime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.models.base import Base
-from app.db.models.rule_execution import RuleExecution
+
+if TYPE_CHECKING:
+    from app.db.models.rule_execution import RuleExecution
 
 class RuleSeverity(enum.Enum):
     low = 'low'
