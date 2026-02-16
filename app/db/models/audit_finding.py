@@ -65,5 +65,5 @@ class AuditFinding(Base):
         nullable=False,
     )
 
-    document: Mapped[Document] = relationship(back_populates='audit_findings')
-    rule_execution: Mapped[RuleExecution] = relationship('audit_findings',)
+    document: Mapped['Document'] = relationship('Document', back_populates='audit_findings')
+    rule_execution: Mapped['RuleExecution'] = relationship('RuleExecution', back_populates='audit_findings')

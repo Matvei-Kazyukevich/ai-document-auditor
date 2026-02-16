@@ -46,10 +46,11 @@ class RuleExecution(Base):
         nullable=True,
     )
 
-    rule: Mapped[Rule] = relationship(back_populates='executions')
-    document: Mapped[Document] = relationship(back_populates='rule_executions')
+    rule: Mapped['Rule'] = relationship('Rule', back_populates='executions')
+    document: Mapped['Document'] = relationship('Document', back_populates='rule_executions')
 
-    audit_findings: Mapped[AuditFinding] = relationship(
+    audit_findings: Mapped[list['AuditFinding']] = relationship(
+        'AuditFinding',
         back_populates='rule_execution',
         cascade='all, delete-orphan',
     )

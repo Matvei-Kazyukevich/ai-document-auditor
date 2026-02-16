@@ -65,12 +65,12 @@ class Document(Base):
         nullable=False,
     )
 
-    rule_executions: Mapped[list[RuleExecution]] = relationship(
+    rule_executions: Mapped[list['RuleExecution']] = relationship(
         back_populates='document',
         cascade='all, delete-orphan',
     )
 
-    audit_findings: Mapped[list[AuditFinding]] = relationship(
+    audit_findings: Mapped[list['AuditFinding']] = relationship(
         back_populates='document',
         cascade='all, delete-orphan',
     )
