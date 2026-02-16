@@ -7,13 +7,16 @@ from app.api.schemas.document import DocumentCreate, DocumentRead, DocumentUpdat
 from app.db.crud.document import create_document, get_document_by_id, update_document
 from app.services.storage.local_storage import save_file
 from app.services.analysis.document_analyzer import analyze_document
+from app.services.rules.tasks import run_rules_background
 
 router = APIRouter(prefix="/documents", tags=["documents"])
 
 # Router for create document
 @router.post('', response_model=DocumentRead, status_code=status.HTTP_201_CREATED)
-def create(payload: DocumentCreate, db: Session = Depends(get_db)):
+def create(payload: DocumentCreate, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     document = create_document(db, payload)
+
+    background_tasks.add_task(run_rules_background, document.id)
     return DocumentRead.model_validate(document)
 
 # Router for get document by id
