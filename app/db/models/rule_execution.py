@@ -2,14 +2,17 @@ from __future__ import annotations
 
 import enum
 from datetime import datetime, UTC
+from typing import TYPE_CHECKING
 
 from sqlalchemy import String, DateTime, Enum, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.db.models import AuditFinding
 from app.db.models.base import Base
-from app.db.models.rule import Rule
-from app.db.models.document import Document
+
+if TYPE_CHECKING:
+    from app.db.models.audit_finding import AuditFinding
+    from app.db.models.rule import Rule
+    from app.db.models.document import Document
 
 class RuleExecutionStatus(enum.Enum):
     running = 'running'
